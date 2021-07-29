@@ -11,7 +11,7 @@ setup(
     author='Matthew Watson',
     author_email='matthew.watson@oahpp.ca',
     description='Bundled utilities for manipulating and integrating FASTA files',
-    install_requires = ["pandas>=1.1.5", "numpy>=1.19.5"],
+    install_requires = ["pandas>=1.1.5", "numpy>=1.19", "biopython>=1.79"],
     entry_points="""
     [console_scripts]
     {program} = fastafurious.__main__:main
