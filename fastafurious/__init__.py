@@ -9,8 +9,6 @@ import importlib
 from types import SimpleNamespace
 from argparse import RawTextHelpFormatter
 
-# specify the sub-commands available
-command_strings = ["gisaid", "nextstrain", "composition", "filter", "subset"]
 
 # make a dictionary with sub-commands and their descriptions
 help_dict = {"filter": "filter sequences in FASTA based on completeness and length",
@@ -19,10 +17,13 @@ help_dict = {"filter": "filter sequences in FASTA based on completeness and leng
              "composition": "Print the composition statistics of FASTA sequences",
              "subset": "Create a FASTA subset based on a txt list of bash record list"}
 
+command_dict = {}
+for command in help_dict.keys():
+    command_dict[str(importlib.import_module('fastafurious.' + str(command)))] = command
 
 # import the modules for each of the subcommands
 # requires the names of the modules to be named the same as the subcommand
-COMMANDS = [importlib.import_module('fastafurious.' + c) for c in command_strings]
+COMMANDS = [importlib.import_module('fastafurious.' + c) for c in help_dict.keys()]
 
 
 def first_line(text):
@@ -49,20 +50,19 @@ def make_parser():
     # create a unique sub-parser for each of the possible sub commands
     # requires the sub commands to have register_arguments and run commands in the script file
     for command in COMMANDS:
-        # add the help dscription for each sub commands to its subparser
-        if str(command).split('fastafurious.')[1].split("\'")[0] in help_dict:
-            help_line = help_dict.get(str(command).split('fastafurious.')[1].split("\'")[0])
-            subparser = subparsers.add_parser(command_name(command), help=help_line,
+        # add the help description for each sub commands to its subparser
+        help_line = help_dict.get(command_dict.get(str(command)))
+        subparser = subparsers.add_parser(command_name(command), help=help_line,
                                               description=help_line)
 
-            subparser.set_defaults(__command__=command)
+        subparser.set_defaults(__command__=command)
 
             # Let the command register arguments on its subparser.
-            command.register_arguments(subparser)
+        command.register_arguments(subparser)
 
             # Use the same formatting class for every command for consistency.
             # Set here to avoid repeating it in every command's register_parser().
-            subparser.formatter_class = argparse.ArgumentDefaultsHelpFormatter
+        subparser.formatter_class = argparse.ArgumentDefaultsHelpFormatter
 
     return parser
 
