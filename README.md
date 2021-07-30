@@ -1,10 +1,17 @@
 # FASTAfurious
 Bundled utilities for manipulation and integration of FASTA files
 
+FASTAfurious provides a set of utilities for the following routine FASTA modifications: 
+- creating a FASTA subset based on a list of sequence names (inclusion or exclusion)
+- printing statistics and filtering sequences based on genome completeness and length
+- renaming fasta headers based on a data sheet
+
 # Installation
 
 ```
 git clone https://github.com/matt-sd-watson/FASTAfurious.git && cd FASTAfurious
+conda env create -f environment.yml
+conda activate fastafurious
 pip install . 
 ```
 
@@ -18,7 +25,7 @@ pip install .
 
 ```
 fastafurious -h
-usage: fastafurious [-h] {gisaid,nextstrain,composition,filter,subset} ...
+usage: fastafurious [-h] {filter,composition,subset,rename} ...
 
 fastafurious: Bundled utilities for manipulating and integrating FASTA files
 
@@ -30,12 +37,12 @@ subcommands:
   easily manipulate and integrate FASTA FILES into routine 
   bioinformatics workflows
 
-  {gisaid,nextstrain,composition,filter,subset}
-    gisaid              Rename FASTA headers to be compatible with Gisaid submissions
-    nextstrain          Rename FASTA hedaers to be compatible with Nextstrain builds
-    composition         Print the composition statistics of FASTA sequences
+  {filter,composition,subset,rename}
     filter              filter sequences in FASTA based on completeness and length
+    composition         Print the composition statistics of FASTA sequences
     subset              Create a FASTA subset based on a txt list of bash record list
+    rename              Rename the headers of a fasta file based on the columns of a data_frame
+
 ```
 
 
