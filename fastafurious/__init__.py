@@ -12,9 +12,9 @@ from argparse import RawTextHelpFormatter
 
 # make a dictionary with sub-commands and their descriptions
 help_dict = {"filter": "filter sequences in FASTA based on completeness and length",
-             "composition": "Print the composition statistics of FASTA sequences",
-             "subset": "Create a FASTA subset based on a txt list of bash record list",
-             "rename": "Rename the headers of a fasta file based on the columns of a data_frame"}
+             "composition": "Print the composition statistics of FASTA sequences (completeness/length)",
+             "subset": "Create a FASTA subset based on a txt list or bash record input",
+             "rename": "Rename the headers of a fasta file based on the columns of a CSV file"}
 
 command_dict = {}
 for command in help_dict.keys():

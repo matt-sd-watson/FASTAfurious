@@ -40,9 +40,23 @@ subcommands:
   {filter,composition,subset,rename}
     filter              filter sequences in FASTA based on completeness and length
     composition         Print the composition statistics of FASTA sequences
-    subset              Create a FASTA subset based on a txt list of bash record list
-    rename              Rename the headers of a fasta file based on the columns of a data_frame
+usage: fastafurious [-h] {filter,composition,subset,rename} ...
 
+fastafurious: Bundled utilities for manipulating and integrating FASTA files
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+subcommands:
+  fastafurious provides a series of bundled functions to 
+  easily manipulate and integrate FASTA FILES into routine 
+  bioinformatics workflows
+
+  {filter,composition,subset,rename}
+    filter              filter sequences in FASTA based on completeness and length
+    composition         Print the composition statistics of FASTA sequences (completeness/length)
+    subset              Create a FASTA subset based on a txt list or bash record input
+    rename              Rename the headers of a fasta file based on the columns of a CSV file
 ```
 
 
