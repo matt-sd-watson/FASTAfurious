@@ -7,7 +7,7 @@ def register_arguments(parser):
     parser.add_argument('--sample_ids', '-s', type=str, help='Sample ID txt file with current and new names',
                         required=True)
     parser.add_argument('--input_fasta', '-i', type=str, help='Input multi-fasta to convert', required=True)
-    parser.add_argument('--output_dir', '-o', type=str, help='output directory for single modified fasta files',
+    parser.add_argument('--output_file', '-o', type=str, help='Output file with rename headers',
                         required=True)
     parser.add_argument('--original_name', '-1', type=str, help='Column header for the existing FASTA headers',
                         required=True)
@@ -29,11 +29,7 @@ def run(args):
 
     fasta_to_open = open(args.input_fasta)
 
-    fasta_name_new = str(os.path.basename(str(fasta_to_open.name))).split('.fa')[0] + "_renamed.fa"
-
-    output_fasta = os.path.join(args.output_dir, fasta_name_new)
-
-    newfasta = open(output_fasta, 'w')
+    newfasta = open(args.output_file, 'w')
 
     content_counts = 0
 
