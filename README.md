@@ -25,7 +25,7 @@ pip install .
 
 ```
 fastafurious -h
-usage: fastafurious [-h] {filter,composition,subset,rename} ...
+usage: fastafurious [-h] {filter,composition,subset,rename,compare} ...
 
 fastafurious: Bundled utilities for manipulating and integrating FASTA files
 
@@ -37,26 +37,12 @@ subcommands:
   easily manipulate and integrate FASTA FILES into routine 
   bioinformatics workflows
 
-  {filter,composition,subset,rename}
-    filter              filter sequences in FASTA based on completeness and length
-    composition         Print the composition statistics of FASTA sequences
-usage: fastafurious [-h] {filter,composition,subset,rename} ...
-
-fastafurious: Bundled utilities for manipulating and integrating FASTA files
-
-optional arguments:
-  -h, --help            show this help message and exit
-
-subcommands:
-  fastafurious provides a series of bundled functions to 
-  easily manipulate and integrate FASTA FILES into routine 
-  bioinformatics workflows
-
-  {filter,composition,subset,rename}
+  {filter,composition,subset,rename,compare}
     filter              filter sequences in FASTA based on completeness and length
     composition         Print the composition statistics of FASTA sequences (completeness/length)
     subset              Create a FASTA subset based on a txt list or bash record input
     rename              Rename the headers of a fasta file based on the columns of a CSV file
+    compare             Compare the header entries of two FASTA input files
 ```
 
 
