@@ -1,5 +1,5 @@
 _program = "fastafurious"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 import argparse
 import re
@@ -14,7 +14,8 @@ from argparse import RawTextHelpFormatter
 help_dict = {"filter": "filter sequences in FASTA based on completeness and length",
              "composition": "Print the composition statistics of FASTA sequences (completeness/length)",
              "subset": "Create a FASTA subset based on a txt list or bash record input",
-             "rename": "Rename the headers of a fasta file based on the columns of a CSV file"}
+             "rename": "Rename the headers of a fasta file based on the columns of a CSV file",
+             "compare": "Compare the header entries of two FASTA input files"}
 
 command_dict = {}
 for command in help_dict.keys():
