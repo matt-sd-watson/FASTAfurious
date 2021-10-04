@@ -1,33 +1,41 @@
 from Bio import SeqIO
 from itertools import product
 import pandas as pd
+import argparse
 
 # compare the headers of two FASTAs to provide content summaries
 
-fasta_1 = "/home/mwatson/COVID-19/one_off/Oct_2021/01_10_21/with_c23059t_mut.fa"
+def register_arguments(parser):
+    parser.add_argument('--input_fasta_1', '-1', dest="input_fasta_1", type=str,
+                        help='First input FASTA to compare', required=True)
+    parser.add_argument('--input-fasta_2', '-2', dest="input_fasta_2", type=str,
+                        help='Second input FASTA to compare', required=True)
+    parser.add_argument('--output-summary', '-o', dest="output_summary",
+                        type=str, help='Optional output summary CSV file of'
+                                                                 'header comparison', required=False,
+                        default='comparison.csv')
 
-fasta_2 = "/home/mwatson/COVID-19/master_fasta/complete_all_27-Sep-2021-09-14.fa"
+def run(args):
+    fasta_1_read = SeqIO.parse(open(args.input_fasta_1), 'fasta')
+    fasta_2_read = SeqIO.parse(open(args.input_fasta_2), 'fasta')
 
-fasta_1_read = SeqIO.parse(open(fasta_1), 'fasta')
+    fasta_1_names = [record.name for record in fasta_1_read]
+    fasta_2_names = [record.name for record in fasta_2_read]
 
-fasta_2_read = SeqIO.parse(open(fasta_2), 'fasta')
+    d = []
 
-fasta_1_names = [record.name for record in fasta_1_read]
+    for i, j in product(fasta_1_names, fasta_2_names):
+        d.append([i, j])
 
-fasta_2_names = [record.name for record in fasta_2_read]
+    df = pd.DataFrame(d, columns=["fasta_1", "fasta_2"])
 
-d = []
+    same_entries = df[df.fasta_1 == df.fasta_2]
 
-for i, j in product(fasta_1_names, fasta_2_names):
-    d.append([i, j])
+    different_entries = df[df.fasta_1 != df.fasta_2]
 
-df = pd.DataFrame(d, columns=["fasta_1", "fasta_2"])
+    print("The following headers match in both input FASTAS:" + "\n")
+    print(same_entries)
 
-same_entries = df[df.fasta_1 == df.fasta_2]
-
-different_entries = df[df.fasta_1 != df.fasta_2]
-
-print(same_entries)
-print(different_entries)
-
+    if args.output_summary:
+        same_entries.to_csv(args.output_summary, index=False)
 
