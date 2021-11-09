@@ -45,4 +45,6 @@ subcommands:
     compare             Compare the header entries of two FASTA input files
 ```
 
+# Acknowledgments
 
+code for fastafurious subset was based on the python script originally written by santiagosnchez [here](https://github.com/santiagosnchez/faSomeRecords)
