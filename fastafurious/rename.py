@@ -14,8 +14,8 @@ def register_arguments(parser):
     parser.add_argument('--new_name', '-2', type=str, help='Column header for the new FASTA headers',
                         required=True)
     parser.add_argument('--keep-all', "-k", action="store_true",
-                        help="If a name match is not found in the renaming CSV, retain sequence with the original name"
-                             "instead of removing it. Default: False", dest = "keep_all")
+                        help="If a name match is not found in the renaming CSV, retain sequence with the original name "
+                             "instead of removing it.", dest = "keep_all")
 
 
 def run(args):
