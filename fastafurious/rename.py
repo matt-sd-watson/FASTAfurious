@@ -1,18 +1,21 @@
 import pandas as pd
 import os
 import argparse
-
+from Bio import SeqIO
 
 def register_arguments(parser):
     parser.add_argument('--sample_ids', '-s', type=str, help='Sample ID txt file with current and new names',
                         required=True)
     parser.add_argument('--input_fasta', '-i', type=str, help='Input multi-fasta to convert', required=True)
-    parser.add_argument('--output_file', '-o', type=str, help='Output file with rename headers',
+    parser.add_argument('--output_fasta', '-o', type=str, help='Output file with rename headers',
                         required=True)
     parser.add_argument('--original_name', '-1', type=str, help='Column header for the existing FASTA headers',
                         required=True)
     parser.add_argument('--new_name', '-2', type=str, help='Column header for the new FASTA headers',
                         required=True)
+    parser.add_argument('--keep-all', "-k", action="store_true",
+                        help="If a name match is not found in the renaming CSV, retain sequence with the original name"
+                             "instead of removing it. Default: False", dest = "keep_all")
 
 
 def run(args):
@@ -27,26 +30,30 @@ def run(args):
         data_dict = None
         print("The renaming dictionary could not be created:\n {}".format(data_dict))
 
-    fasta_to_open = open(args.input_fasta)
+    fasta_sequences = SeqIO.parse(open(args.input_fasta), 'fasta')
 
-    newfasta = open(args.output_file, 'w')
+    all_in_fasta = []
+    with open(args.output_fasta, "w") as handle:
+        for record in fasta_sequences:
+            all_in_fasta.append(record.id)
+            new_name = str(data_dict.get(record.id))
+            if new_name != "None":
+                record.id = new_name
+                record.description = record.id
+                SeqIO.write(record, handle, "fasta")
+            else:
+                if args.keep_all:
+                    record.id = record.id
+                    SeqIO.write(record, handle, "fasta")
+                    print("WARNING: the following record has no match in samples IDs and will be kept with the original name: {}"
+                          .format(record.id))
+                else:
+                    pass
+                    print("WARNING: --keep-all is disabled. The following record has no match in samples IDs and will be removed: {}"
+                          .format(record.id))
 
-    content_counts = 0
 
-    for line in fasta_to_open:
-        if line.startswith('>'):
-            content_counts += 1
-        # if the line is a header, make it the same as the file name
-        # make sure to strip twice to remove any new line features
-            line_cleaned = line.strip('>').strip()
-            replacement_line = str(data_dict.get(line_cleaned))
-        # ensure that the replacement header is written to a single line
-        # write the file contents to the newly named file
-            newfasta.write(">" + replacement_line + "\n")
-        # if the line is not a header, write identical lines to the new fasta
-        else:
-            newfasta.write(line)
-
-    fasta_to_open.close()
-    newfasta.close()
-    assert content_counts == len(data_dict)
+    missing_from_fasta = [i for i in set(data_dict.keys()) if i not in all_in_fasta]
+    if len(missing_from_fasta) > 0:
+        print("WARNING: the following records are in the Sample IDs but missing from the input FASTA:")
+        print(*missing_from_fasta, sep="\n")
