@@ -1,0 +1,26 @@
+name: FASTAfurious_CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: FASTAfurious test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install FASTAfurious
+        run: |
+          pip install pandas>=1.1.5 numpy>=1.19 biopython>=1.79 pytest>=7.1.2
+          pip install -e .
+      - name: Check FASTAfurious installation
+        shell: bash -l {0}
+        run: fastafurious -h
+      - name: Run pytests
+        run: pytest tests/
