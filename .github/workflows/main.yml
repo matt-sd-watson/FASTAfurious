@@ -1,0 +1,25 @@
+name: FASTAfurious_CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: FASTAfurious test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+      - name: Install FASTAfurious
+        run: pip install .
+      - name: Check FASTAfurious installation
+        shell: bash -l {0}
+        run: fastafurious -h
+      - name: Run pytests
+        run: pytest tests/
