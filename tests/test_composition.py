@@ -17,7 +17,6 @@ def test_composition_default_params(get_merged_seq_path):
     results = subprocess.check_output(
         ['fastafurious', 'composition', '-i', get_merged_seq_path])
 
-
     assert all(elem in ["WARNING: The following sequences are too short for analysis: Sequence: Focal_1, Length: 29684",
             "WARNING: The following sequences are too short for analysis: Sequence: Focal_2, Length: 29683",
             "WARNING: The following sequences are too short for analysis: Sequence: Background_1, Length: 29630",
