@@ -16,7 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install FASTAfurious
-        run: pip install -e .
+        run: |
+          pip install pandas>=1.1.5 numpy>=1.19 biopython>=1.79
+          pip install -e .
       - name: Check FASTAfurious installation
         shell: bash -l {0}
         run: fastafurious -h
