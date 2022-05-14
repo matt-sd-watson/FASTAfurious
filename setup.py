@@ -1,12 +1,13 @@
 from setuptools import setup
 from fastafurious import __version__, _program
 import os
+from pathlib import Path
 
-base_dir = Path(__file__).parent.resolve()
-readme_file = os.path.join(base_dir, "README.md")
-
-with readme_file.open(encoding = "utf-8") as f:
-    readme_description = f.read()
+try:
+    import pypandoc
+    long_description = pypandoc.convert_file('README.md', 'rst')
+except(IOError, ImportError):
+    long_description = open('README.md').read()
 
 setup(
     name='fastafurious',
@@ -22,8 +23,8 @@ setup(
     author='Matthew Watson',
     author_email='matthew.watson@uhn.ca',
     description='Bundled utilities for manipulating and integrating FASTA files',
-    long_description = readme_description,
-    install_requires = ["pandas>=1.1.5", "numpy>=1.19", "biopython>=1.79"],
+    long_description = long_description,
+    install_requires = ["pandas>=1.1.5", "numpy>=1.19", "biopython>=1.79", "pypandoc>=1.8"],
     entry_points="""
     [console_scripts]
     {program} = fastafurious.__main__:main
