@@ -4,32 +4,32 @@ import pytest
 from Bio import SeqIO
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_data_dir():
     return str(os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/')))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_merged_seq_path(get_data_dir):
     return str(os.path.join(get_data_dir, 'merged_seqs.fa'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_subset_list_path(get_data_dir):
     return str(os.path.join(get_data_dir, 'subset_list.txt'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "function")
 def get_subset_output_file(tmp_path):
     return str(os.path.join(tmp_path, 'temp.fa'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def subset_include():
     return ["Focal_2", "Focal_3", "Focal_4", "Background_1", "Background_3", "Background_4"]
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def subset_exclude():
     return ["Focal_1", "Background_2", "Background_5", "Background_6"]
 

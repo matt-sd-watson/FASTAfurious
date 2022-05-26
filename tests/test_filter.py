@@ -4,17 +4,17 @@ import pytest
 from Bio import SeqIO
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_data_dir():
     return str(os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/')))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_merged_seq_path(get_data_dir):
     return str(os.path.join(get_data_dir, 'merged_seqs.fa'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "function")
 def get_filtered_output_file(tmp_path):
     return str(os.path.join(tmp_path, 'temp.fa'))
 

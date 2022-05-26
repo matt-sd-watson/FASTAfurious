@@ -4,32 +4,32 @@ import pytest
 from Bio import SeqIO
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_data_dir():
     return str(os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/')))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_merged_seq_path(get_data_dir):
     return str(os.path.join(get_data_dir, 'merged_seqs.fa'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_partial_renaming_csv(get_data_dir):
     return str(os.path.join(get_data_dir, 'names_partial.csv'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_full_renaming_csv(get_data_dir):
     return str(os.path.join(get_data_dir, 'names_complete.csv'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "function")
 def get_filtered_output_file(tmp_path):
     return str(os.path.join(tmp_path, 'temp.fa'))
 
 
-@pytest.fixture
+@pytest.fixture(scope = "module")
 def get_input_header_name():
     return ["-1", "original_name", "-2", "new_name"]
 
