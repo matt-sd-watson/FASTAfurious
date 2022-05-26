@@ -2,17 +2,6 @@ import os
 import subprocess
 import pytest
 
-
-@pytest.fixture(scope = "module")
-def get_data_dir():
-    return str(os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/')))
-
-
-@pytest.fixture(scope = "module")
-def get_merged_seq_path(get_data_dir):
-    return str(os.path.join(get_data_dir, 'merged_seqs.fa'))
-
-
 def test_composition_default_params(get_merged_seq_path):
     results = subprocess.check_output(
         ['fastafurious', 'composition', '-i', get_merged_seq_path])
