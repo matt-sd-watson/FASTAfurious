@@ -24,7 +24,8 @@ setup(
     author_email='matthew.watson@uhn.ca',
     description='Bundled utilities for manipulating and integrating FASTA files',
     long_description = long_description,
-    install_requires = ["pandas>=1.1.5", "numpy>=1.19", "biopython>=1.79", "pypandoc>=1.8"],
+    install_requires = ["pandas>=1.1.5", "numpy>=1.19", "biopython>=1.79", "pypandoc>=1.8",
+                        "pytest>=7.1.2"],
     entry_points="""
     [console_scripts]
     {program} = fastafurious.__main__:main
