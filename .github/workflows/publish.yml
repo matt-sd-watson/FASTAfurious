@@ -1,0 +1,28 @@
+name: Publish FASTAfurious to PyPI on release tag
+
+on:
+  release:
+      types:
+          - "published"
+jobs:
+  pypi_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2.1.2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+      - name: build package
+        run: python setup.py sdist bdist_wheel
+      - name: publish to PyPI
+        # only create relases from tagged commits to master:
+        if: startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@v1.4.1
+        with:
+          # if no "user:" specified use pypi token instead of username/password
+          password: ${{ secrets.PUBLISH_PYPI_FASTAFURIOUS }} # use secret from github secrets
