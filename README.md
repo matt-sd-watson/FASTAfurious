@@ -1,5 +1,5 @@
 # FASTAfurious
-[![PyPI version](https://badge.fury.io/py/fastafurious.svg)](https://badge.fury.io/py/fastafurious) \
+[![PyPI version](https://badge.fury.io/py/fastafurious.svg)](https://badge.fury.io/py/fastafurious)
 ![example workflow](https://github.com/matt-sd-watson/FASTAfurious/actions/workflows/main.yml/badge.svg) \
 Bundled utilities for manipulation and integration of FASTA files
 

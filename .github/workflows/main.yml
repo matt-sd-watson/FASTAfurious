@@ -1,4 +1,4 @@
-name: FASTAfurious_CI
+name: FASTAfurious
 on:
   push:
     branches:
