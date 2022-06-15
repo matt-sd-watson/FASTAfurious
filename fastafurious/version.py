@@ -1,4 +1,4 @@
-from outbreaker import __version__
+from fastafurious import __version__
 import argparse
 import sys
 
