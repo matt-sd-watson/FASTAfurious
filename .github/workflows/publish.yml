@@ -4,8 +4,6 @@ on:
   release:
       types:
           - "published"
-          - "edited"
-          - "released"
 jobs:
   pypi_publish:
     runs-on: ubuntu-latest

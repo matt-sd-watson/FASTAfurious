@@ -19,3 +19,7 @@
 
 - Fixes to PyPi publish (CD)
 - Edits to README to match PyPi
+
+## Version 1.2.5, 15-06-22
+
+- Minor fixes to publish (CD) behaviour for PyPi: publish only on published releases 
