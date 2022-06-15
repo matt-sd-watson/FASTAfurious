@@ -14,3 +14,8 @@
 - Edits to versions for PyPi publish (CD)
 - Add option to print FASTAfurious version then exit
 - Simple pytest for above module
+
+## Version 1.2.4, 15-06-22
+
+- Fixes to PyPi publish (CD)
+- Edits to README to match PyPi
