@@ -4,6 +4,8 @@ on:
   release:
       types:
           - "published"
+          - "edited"
+          - "released"
 jobs:
   pypi_publish:
     runs-on: ubuntu-latest
@@ -19,7 +21,9 @@ jobs:
           pip install setuptools wheel twine
           pip install pandas>=1.1.5 numpy>=1.19 biopython>=1.79 pytest>=7.1.2 pypandoc>=1.8
       - name: build package
-        run: python setup.py sdist bdist_wheel
+        run: |
+          pip install pandoc>=2.2
+          python setup.py sdist bdist_wheel 
       - name: publish to PyPI
         # only create relases from tagged commits to master:
         if: startsWith(github.ref, 'refs/tags')

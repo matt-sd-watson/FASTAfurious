@@ -45,6 +45,7 @@ subcommands:
     subset              Create a FASTA subset based on a txt list or bash record input
     rename              Rename the headers of a fasta file based on the columns of a CSV file
     compare             Compare the header entries of two FASTA input files
+    version             Print the current FASTAfurious version then exit.
 ```
 
 # Acknowledgments
