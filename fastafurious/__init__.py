@@ -1,5 +1,5 @@
 _program = "fastafurious"
-__version__ = "1.2.2"
+__version__ = "1.2.3"
 
 import argparse
 import re
@@ -15,7 +15,8 @@ help_dict = {"filter": "filter sequences in FASTA based on completeness and leng
              "composition": "Print the composition statistics of FASTA sequences (completeness/length)",
              "subset": "Create a FASTA subset based on a txt list or bash record input",
              "rename": "Rename the headers of a fasta file based on the columns of a CSV file",
-             "compare": "Compare the header entries of two FASTA input files"}
+             "compare": "Compare the header entries of two FASTA input files",
+             "version": "Print the current FASTAfurious version then exit."}
 
 command_dict = {}
 for command in help_dict.keys():
@@ -50,6 +51,7 @@ def make_parser():
     # create a unique sub-parser for each of the possible sub commands
     # requires the sub commands to have register_arguments and run commands in the script file
     for command in COMMANDS:
+
         # add the help description for each sub commands to its subparser
         help_line = help_dict.get(command_dict.get(str(command)))
         subparser = subparsers.add_parser(command_name(command), help=help_line,
@@ -57,11 +59,11 @@ def make_parser():
 
         subparser.set_defaults(__command__=command)
 
-            # Let the command register arguments on its subparser.
+        # Let the command register arguments on its subparser.
         command.register_arguments(subparser)
 
-            # Use the same formatting class for every command for consistency.
-            # Set here to avoid repeating it in every command's register_parser().
+        # Use the same formatting class for every command for consistency.
+        # Set here to avoid repeating it in every command's register_parser().
         subparser.formatter_class = argparse.ArgumentDefaultsHelpFormatter
 
     return parser
